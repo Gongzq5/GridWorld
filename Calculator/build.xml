@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<project name="Calculator" default="run" basedir=".">
+
+	<target name="clean">
+		<delete dir="build"/>
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="build/classes"/>
+		<javac srcdir="src" destdir="build/classes" classpath="junit-4.9.jar"/>
+	</target>
+
+	<target name="run" depends="compile">
+		<java classname="Calculator" fork="yes">
+			<classpath>
+				<pathelement path="build/classes"/>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="jar" depends="run">
+		<jar destfile="helloworld.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-class" value="HelloWorld"/>
+			</manifest>
+		</jar>
+	</target>
+
+    <target name="junit" depends="compile">
+        <junit printsummary="true" fork="true">
+        	<formatter type="xml" usefile="true"/>
+        	<classpath path="build/junit-4.9.jar"/>
+        	<test name="CaculatorTest"/>
+         </junit>
+    </target>
+</project>
